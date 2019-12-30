@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @File  : train2.py
+# @File  : train.py
 # @Author: Jehovah
 # @Date  : 18-9-18
 # @Desc  :
