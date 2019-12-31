@@ -7,27 +7,18 @@
 
 
 from torch.utils.data import DataLoader
-import os
-import option
 import torchvision.utils as vutils
 import time
 from data_loader2 import *
-
-# from data import *
-# from models.Systhesis import *
+from option import Options
 from models.sys_trans_sp_multi import *
 from pix2pix_model import *
-opt = option.init()
-os.environ["CUDA_VISIBLE_DEVICES"] = opt.gpuid  # 指定gpu
 
-if not os.path.exists(opt.sample):
-    os.makedirs(opt.sample)
-if not os.path.exists(opt.checkpoints):
-    os.makedirs(opt.checkpoints)
-if not os.path.exists(opt.output):
-    os.makedirs(opt.output)
+
+opt = Options().parse()
+
+
 def train():
-    # data_loader = MyDataset(opt, "/train")
     data_loader = MyDataset(opt)
     print('trainA images = %d' % len(data_loader))
 
@@ -45,18 +36,14 @@ def train():
     pre_dic_netG = {k: v for k, v in pre_dic_netG.items() if k in low}
     low.update(pre_dic_netG)
     net_G.load_state_dict(low)
-    # net_G.apply(weights_init)
     net_D.apply(weights_init)
     net_G.cuda()
     net_D.cuda()
 
-
     criterionGAN = GANLoss()
     critertion1 = nn.L1Loss()
-    # BCE_stable = nn.BCEWithLogitsLoss()
     optimizerG = torch.optim.Adam(net_G.parameters(), lr=opt.lr, betas=(opt.bata, 0.999))
     optimizerD = torch.optim.Adam(net_D.parameters(), lr=opt.lr, betas=(opt.bata, 0.999))
-
 
     net_D.train()
     net_G.train()
@@ -110,11 +97,7 @@ def train():
                 print "saved model at epoch " + str(epoch)
             if epoch % 20 == 0:
                 test(epoch, net_G, test_loader)
-    print "save net"
-    if not os.path.exists(opt.checkpoints):
-        os.makedirs(opt.checkpoints)
-    torch.save(net_G.state_dict(), opt.checkpoints + '/net_G_ins.pth')
-    torch.save(net_D.state_dict(), opt.checkpoints + '/net_D_ins.pth')
+    print "finish"
 
 
 def test(epoch, netG, test_data):
@@ -136,6 +119,7 @@ def test(epoch, netG, test_data):
         vutils.save_image(fake_B[:, :, 3:253, 28:228], output_name, normalize=True, scale_each=True)
 
     print str(epoch) + " saved"
+
 
 if __name__ == '__main__':
     train()
