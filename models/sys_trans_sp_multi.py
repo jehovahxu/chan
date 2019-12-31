@@ -12,7 +12,6 @@ import torch.nn as nn
 class Sys_Generator(nn.Module):
     def __init__(self, input_nc, output_nc, ngf=64):
         super(Sys_Generator, self).__init__()
-        #256*256
         self.en_1 = nn.Sequential(
             nn.Conv2d(input_nc, ngf, kernel_size=4, stride=2, padding=1),
             nn.LeakyReLU(0.2, True)

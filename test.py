@@ -7,24 +7,19 @@
 
 
 from torchvision.utils import save_image
-import option
-from data_loader3 import *
+from option import Options
+from data_loader2 import *
 from models.sys_trans_sp_multi import *
 from pix2pix_model import *
 
-opt = option.init()
-# opt.datalist = 'files/list_test.txt'
+opt = Options().parse()
 net_G = Sys_Generator(opt.input_nc, opt.output_nc)
-
 net_G.load_state_dict(torch.load(opt.pre_netG))
 
 dataset = MyDataset(opt, isTrain=1)
 data_iter = data.DataLoader(
     dataset, batch_size=opt.batchSize,
     num_workers=16)
-
-if not os.path.exists(opt.output):
-    os.mkdir(opt.output)
 
 # net_G.eval()
 net_G.cuda()
