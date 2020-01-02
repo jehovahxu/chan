@@ -14,7 +14,6 @@ from option import Options
 from models.sys_trans_sp_multi import *
 from pix2pix_model import *
 
-
 opt = Options().parse()
 
 
@@ -22,11 +21,12 @@ def train():
     data_loader = MyDataset(opt)
     print('trainA images = %d' % len(data_loader))
 
-    train_loader = torch.utils.data.DataLoader(dataset=data_loader, batch_size=opt.batchSize, shuffle=True, num_workers=16)
+    train_loader = torch.utils.data.DataLoader(dataset=data_loader, batch_size=opt.batchSize, shuffle=True,
+                                               num_workers=16)
 
     test_set = MyDataset(opt, isTrain=1)
     test_loader = torch.utils.data.DataLoader(dataset=test_set, batch_size=1, shuffle=False,
-                                               num_workers=16)
+                                              num_workers=16)
     print('testA images = %d' % len(test_loader))
     net_G = Sys_Generator(opt.input_nc, opt.output_nc)
     net_D = Discriminator(opt.input_nc, opt.output_nc)
@@ -83,45 +83,21 @@ def train():
             optimizerG.step()
             if i % 100 == 0:
                 print ('[%d/%d][%d/%d] LOSS_D: %.4f LOSS_G: %.4f LOSS_L1: %.4f' % (
-                epoch, opt.niter, i, len(train_loader), loss_D, loss_G, loss_G_L1))
+                    epoch, opt.niter, i, len(train_loader), loss_D, loss_G, loss_G_L1))
                 print ('LOSS_real: %.4f LOSS_fake: %.4f' % (loss_D_real, loss_D_fake))
         print 'Time Taken: %d sec' % (time.time() - epoch_start_time)
         if epoch % 5 == 0:
             vutils.save_image(fake_B.data,
-                              opt.sample+'/fake_samples_epoch_%03d.jpg' % (epoch),
+                              opt.sample + '/fake_samples_epoch_%03d.jpg' % (epoch),
                               normalize=True)
         if epoch >= 500:
             if epoch % 100 == 0:
                 torch.save(net_G.state_dict(), opt.checkpoints + '/net_G_ins' + str(epoch) + '.pth')
                 # torch.save(net_D.state_dict(), opt.checkpoints + '/net_D_ins' + str(epoch) + '.pth')
                 print "saved model at epoch " + str(epoch)
-            if epoch % 20 == 0:
-                test(epoch, net_G, test_loader)
     print "finish"
-
-
-def test(epoch, netG, test_data):
-    save_dir = opt.output + '/' + str(epoch)
-    if not os.path.exists(save_dir):
-        os.makedirs(save_dir)
-    for i, image in enumerate(test_data):
-        imgA = image[0]
-        # imgB = image[1]
-        # imgB = image['A']
-
-        real_A = imgA.cuda()
-        # real_B = imgB.cuda()
-        fake_B = netG(real_A)
-        # output = output.cpu()
-        output_name = '{:s}/{:s}{:s}'.format(
-            save_dir, str(i+1), '.jpg')
-
-        vutils.save_image(fake_B[:, :, 3:253, 28:228], output_name, normalize=True, scale_each=True)
-
-    print str(epoch) + " saved"
 
 
 if __name__ == '__main__':
     train()
     pass
-

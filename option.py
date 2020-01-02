@@ -18,7 +18,7 @@ class Options():
     def initialize(self):
         self.parser = argparse.ArgumentParser(description="PyTorch")
         self.parser.add_argument('--dataroot', default='/data/xxx/photosketch/',
-                            help="path to images (should have subfolders trainA, trainB, valA, valB, etc)")
+                                 help="path to images (should have sub folders, eg: AR, CUHK etc)")
         self.parser.add_argument('--gpuid', type=str, default='0', help='which gpu to use')
         self.parser.add_argument('--loadSize', type=int, default=286, help='scale images to this size')
         self.parser.add_argument('--fineSize', type=int, default=256, help='then crop to this size')
@@ -27,17 +27,18 @@ class Options():
         self.parser.add_argument('--lr', type=int, default=1e-4, help='learning rate')
         self.parser.add_argument('--bata', type=int, default=0.5, help='momentum parameters bata1')
         self.parser.add_argument('--batchSize', type=int, default=1,
-                            help='with batchSize=1 equivalent to instance normalization.')
+                                 help='with batchSize=1 equivalent to instance normalization.')
         self.parser.add_argument('--niter', type=int, default=800, help='number of epochs to train for')
         self.parser.add_argument('--lamb', type=int, default=100, help='weight on L1 term in objective')
-        self.parser.add_argument('--sample', type=str, default='./samples', help=' are saved here')
+        self.parser.add_argument('--sample', type=str, default='./samples', help='intermediate results are saved here')
         self.parser.add_argument('--checkpoints', type=str, default='./checkpoints', help=' models are saved here')
         self.parser.add_argument('--output', default='./output', help='folder to output images ')
-        self.parser.add_argument('--datalist', default='files/list_train.txt')
-        self.parser.add_argument('--pre_netG', default='./checkpoints/net_G_ins.pth')
-        self.parser.add_argument('--pre_netD', default='./checkpoints/net_D_ins.pth')
-        self.parser.add_argument('--pre_netA', default='./checkpoints/net_A_ins.pth')
-        self.parser.add_argument('--pre_netE', default='./checkpoints/net_E_ins.pth')
+        self.parser.add_argument('--datalist', default='files/list_train.txt', help='use a text to load dataset and you\
+                                 also need switch list when you test')
+        self.parser.add_argument('--pre_netG', default='./checkpoints/net_G_ins.pth', help='load the pre-train model\
+                                 and in train and load the final model in test')
+        self.parser.add_argument('--pre_netD', default='./checkpoints/net_D_ins.pth', help=' ')
+        self.parser.add_argument('--pre_netA', default='./checkpoints/net_A_ins.pth', help=' ')
         self.initialized = True
 
     def parse(self):
@@ -89,5 +90,3 @@ def mkdirs(paths):
             mkdir(path)
     else:
         mkdir(paths)
-
-
