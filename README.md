@@ -38,7 +38,7 @@ cd chan
     python test.py --dataroot {your dataset} --datalist {your datalist} --pre_netG {final netG} --gpuid {your gpu ids}
     ```
 ### Result
-Our final result can download in [here]()
+Our final result can be downloaded in [here]()
 ![](./imgs/score1.png)
 
 ### Training/Test Tips
