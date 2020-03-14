@@ -31,12 +31,13 @@ cd chan
     - [CUFS](http://mmlab.ie.cuhk.edu.hk/archive/facesketch.html) split train and test with this [files](https://drive.google.com/open?id=1TYQ5O9q4ZMiuBimPMqqj7O_SyHoijwmn)
     - **CityScapes,Facades.Google Map,Edge2Shoes,Edge2Handbags**: you can download by [Pix2Pix bash](https://github.com/phillipi/pix2pix/blob/master/datasets/download_dataset.sh) 
     - Paris Street View : you can contact [Deepak Pathak](https://github.com/pathak22) to get the dataset 
-- Download a pre-trained model(pre-trained with [pix2pix](https://github.com/jehovahxu/pix2pix-pytorch))
-- Train a model (you need make sure your CUDA is available) eg.CUFS  dataset:
-    - you can download a pre-trained model in [here](https://drive.google.com/open?id=1dfe2pqAUD4T6fD9vO38SM2HCYJSe9Nxj)
-    ```shell script
-    python train.py --dataroot {your dataset} --datalist {your datalist} --pre_netG {pre-trained netG} --gpuid {your gpu ids}  
-    ```
+- we use fine-tuning to train our model eg.CUFS
+    - first you need train on Pix2Pix to get a coarse model or you can Download a pre-trained model(pre-trained with [Pix2Pix](https://github.com/jehovahxu/pix2pix-pytorch)) in  [here](https://drive.google.com/open?id=1dfe2pqAUD4T6fD9vO38SM2HCYJSe9Nxj)
+    - Train a model:
+        - you can download a pre-trained pix2pix model in
+        ```shell script
+        python train.py --dataroot {dataset path} --datalist {datalist path} --pre_netG {coarse model path} --gpuid {your gpu ids}  
+        ```
 - Test
     ```shell script
     python test.py --dataroot {your dataset} --datalist {your datalist} --pre_netG {final netG} --gpuid {your gpu ids}
