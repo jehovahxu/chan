@@ -40,7 +40,7 @@ cd chan
         ```
 - Test
     ```shell script
-    python test.py --dataroot {your dataset} --datalist {your datalist} --pre_netG {final netG} --gpuid {your gpu ids}
+    python test.py --dataroot {dataset path} --datalist {datalist path} --pre_netG {final model path} --gpuid {your gpu ids}
     ```
 #### Apply a pre-trained model
 A face photo-to-sketch model pre-trained on the CUSF: [Google Drive](https://drive.google.com/open?id=173H7FdwG7UOMM1G-4sm7zKUBu0yFypul)
