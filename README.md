@@ -2,16 +2,18 @@
 
 ## Coarse-to-Fine Image-to-Image Translation via Attentively Collaborative
 
-we provide PyTorch implementations for our paper "We provide PyTorch implementations for our CVPR 2019 paper "APDrawingGAN: Generating Artistic Portrait Drawings from Face Photos with Hierarchical GANs"
+we provide PyTorch implementations for our paper "Complementary, Heterogeneous and Adversarial
+Networks for Image-to-Image Translation"
 
 ### Our Proposed Framework
-![](imgs/architecture1.png)
-![](imgs/architecture2.png)
+####Generator
+![](imgs/generator.png)
+####Discriminator
+![](imgs/discriminator.png)
 ### Sample Result
-Up: input, Down: output
-![](imgs/result2.png)
+![](imgs/result3.png)
 ### Prerequisites
-- Linux
+- Linux or similar environment
 - Python 2.7
 - NVIDIA GPU + CUDA CuDNN
 
@@ -25,25 +27,48 @@ cd chan
 ```
 - install PyTorch 0.4+
 #### Quick Start(Apply a Pre-trained Model)
-- Download a dataset([CUFS](http://mmlab.ie.cuhk.edu.hk/archive/facesketch.html) split train and test with this [files](https://drive.google.com/open?id=1TYQ5O9q4ZMiuBimPMqqj7O_SyHoijwmn))
+- Download a dataset
+    - [CUFS](http://mmlab.ie.cuhk.edu.hk/archive/facesketch.html) split train and test with this [files](https://drive.google.com/open?id=1TYQ5O9q4ZMiuBimPMqqj7O_SyHoijwmn)
+    - **CityScapes,Facades.Google Map,Edge2Shoes,Edge2Handbags**: you can download by [Pix2Pix bash](https://github.com/phillipi/pix2pix/blob/master/datasets/download_dataset.sh) 
+    - Paris Street View : you can contact [Deepak Pathak](https://github.com/pathak22) to get the dataset 
 - Download a pre-trained model(pre-trained with [pix2pix](https://github.com/jehovahxu/pix2pix-pytorch))
-- Train a model (you need make sure your CUDA is available):
+- Train a model (you need make sure your CUDA is available) eg.CUFS  dataset:
     - you can download a pre-trained model in [here](https://drive.google.com/open?id=1dfe2pqAUD4T6fD9vO38SM2HCYJSe9Nxj)
     ```shell script
     python train.py --dataroot {your dataset} --datalist {your datalist} --pre_netG {pre-trained netG} --gpuid {your gpu ids}  
     ```
 - Test
-    - you can download a final model which we trained in [here](https://drive.google.com/open?id=173H7FdwG7UOMM1G-4sm7zKUBu0yFypul)
-    ```shell script
+       ```shell script
     python test.py --dataroot {your dataset} --datalist {your datalist} --pre_netG {final netG} --gpuid {your gpu ids}
     ```
+#### Apply a pre-trained model
+A face photo-to-sketch model pre-trained on the CUSF: [Google Drive](https://drive.google.com/open?id=173H7FdwG7UOMM1G-4sm7zKUBu0yFypul)
+
+The pre-trained model need to be save at `./checkpoint`
+
+Then you can test the model
+ 
 ### Result
 Our final result can be downloaded in [here]()
-![](./imgs/score1.png)
+
+Our Quantitative performance in a variety of image-to-image translation tasks. The total score gained by every model  on each dataset are reported in the column of score
+![](./imgs/ex_result.png)
 
 ### Training/Test Tips
 Best practice for training and testing your models.<p>
-Feel free to ask any questions.Xingxin Xu, [jehovahxu@gmail.com](jehovahxu@gmail.com)<p>
+Feel free to ask any questions about coding.Xingxin Xu, [jehovahxu@gmail.com](jehovahxu@gmail.com)<p>
+
+### Citation
+If you find this useful for your research, please cite our paper as:
+```
+@article{gao2020ca-gan,
+	title = {Complementary, Heterogeneous and Adversarial Networks for Image-to-Image Translation},
+	author = {},
+	year = {2020},
+	url = {https://github.com/fei-hdu},
+}
+```
+
 ### Acknowledgments
 Our code is inspired by [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
 
