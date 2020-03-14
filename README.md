@@ -6,9 +6,9 @@ we provide PyTorch implementations for our paper "Complementary, Heterogeneous a
 Networks for Image-to-Image Translation"
 
 ### Our Proposed Framework
-####Generator
+#### Generator
 ![](imgs/generator.png)
-####Discriminator
+#### Discriminator
 ![](imgs/discriminator.png)
 ### Sample Result
 ![](imgs/result3.png)
@@ -38,7 +38,7 @@ cd chan
     python train.py --dataroot {your dataset} --datalist {your datalist} --pre_netG {pre-trained netG} --gpuid {your gpu ids}  
     ```
 - Test
-       ```shell script
+    ```shell script
     python test.py --dataroot {your dataset} --datalist {your datalist} --pre_netG {final netG} --gpuid {your gpu ids}
     ```
 #### Apply a pre-trained model
@@ -49,7 +49,7 @@ The pre-trained model need to be save at `./checkpoint`
 Then you can test the model
  
 ### Result
-Our final result can be downloaded in [here]()
+Our final result can be downloaded in [here](https://drive.google.com/open?id=1AzmHkcGa21h6Mngdc7sEIH1hOR6GrBTS)
 
 Our Quantitative performance in a variety of image-to-image translation tasks. The total score gained by every model  on each dataset are reported in the column of score
 ![](./imgs/ex_result.png)
